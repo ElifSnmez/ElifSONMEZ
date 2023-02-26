@@ -50,26 +50,27 @@ public class Main {
         selectSize.click();
         WebElement addBasket = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[3]/div[1]/div[1]/div[2]/div[2]/div[4]/button[1]")));
         addBasket.click();
-        WebElement goToBasket = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/header/div/div/div[3]/div/a[3]/span")));
+        Thread.sleep(9000);
+        WebElement goToBasket = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/header/div/div/div[3]/div/a[3]/span")));
         goToBasket.click();
-        String price2 = driver.findElement(By.xpath("/html/body/div[1]/div[1]/div/div/div[2]/div[1]/div[2]/ul/li[1]/span[2]")).getAttribute("textContent");
+        String price2 = driver.findElement(By.xpath("/html/body/div[1]/div[1]/div/div/div[1]/div[2]/div[1]/div[2]/div/div[2]/div[1]/div[1]/div/div/span")).getAttribute("textContent");
+
+        if (price1.equals(price2)) {
+            System.out.println("Prices are equal");
+        }
+        else {
+            System.out.println("Prices are not equal");
+        }
+
         WebElement addShirtCombobox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[1]/div[1]/div/div/div[1]/div[2]/div[1]/div[2]/div/div[2]/div[1]/div[2]/ul[2]/li/div[2]/div/select")));
         addShirtCombobox.click();
         WebElement addShirt = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[1]/div[1]/div/div/div[1]/div[2]/div[1]/div[2]/div/div[2]/div[1]/div[2]/ul[2]/li/div[2]/div/select/option[2]")));
         addShirt.click();
-        Assert.assertEquals("2", addShirt.getText());
+        Assert.assertEquals("2 adet", addShirt.getText());
         WebElement deleteBasket = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[1]/div[1]/div/div/div[1]/div[2]/div[1]/div[2]/div/div[1]/button")));
         deleteBasket.click();
         WebElement checkBasketIsEmpty = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/div[1]/div/div/div[1]/div/div/strong")));
-        Assert.assertEquals("Sepetinizde Ürün Bulunmamaktadır", checkBasketIsEmpty.getText());
-
-
-        if (price1 == price2) {
-          System.out.println("Prices are equal");
-        }
-         else {
-           System.out.println("Prices are not equal");
-        }
+        Assert.assertEquals("SEPETINIZDE ÜRÜN BULUNMAMAKTADIR", checkBasketIsEmpty.getText());
 
           driver.quit();
    }
